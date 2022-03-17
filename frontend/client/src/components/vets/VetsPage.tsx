@@ -16,7 +16,7 @@ export default class VetsPage extends React.Component<any, IVetsPageState> {
   constructor(props: void, state: IVetsPageState) {
     super(props, state);
     this.initial_render = true;
-    APMService.getInstance().startTransaction('VetsPage');
+    // APMService.getInstance().startTransaction('VetsPage');
     punish();
     this.state = { vets: [] };
   }
@@ -24,21 +24,21 @@ export default class VetsPage extends React.Component<any, IVetsPageState> {
   componentDidMount() {
     xhr_request('api/vets', (status, vets) =>  {
       if (status < 400) {
-        APMService.getInstance().startSpan('Page Render', 'react');
+        // APMService.getInstance().startSpan('Page Render', 'react');
         this.setState({ vets });
       }
     });
   }
 
   componentWillUnmount() {
-    APMService.getInstance().endSpan();
-    APMService.getInstance().endTransaction(false);
+    // APMService.getInstance().endSpan();
+    // APMService.getInstance().endTransaction(false);
   }
 
   componentDidUpdate() {
     if (this.initial_render) {
-      APMService.getInstance().endSpan();
-      APMService.getInstance().endTransaction(true);
+      // APMService.getInstance().endSpan();
+      // APMService.getInstance().endTransaction(true);
     }
     this.initial_render = false;
   }

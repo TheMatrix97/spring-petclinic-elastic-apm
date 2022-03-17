@@ -40,29 +40,29 @@ export default class NewPetPage extends React.Component<INewPetPageProps, INewPe
   constructor(props: INewPetPageProps, state: INewPetPageState) {
     super(props, state);
     this.initial_render = true;
-    APMService.getInstance().startTransaction('NewPetPage');
+    // APMService.getInstance().startTransaction('NewPetPage');
     punish();
   }
 
 
   componentDidUpdate() {
     if (this.initial_render) {
-      APMService.getInstance().endSpan();
-      APMService.getInstance().endTransaction(true);
+      // APMService.getInstance().endSpan();
+      // APMService.getInstance().endTransaction(true);
     }
     this.initial_render = false;
   }
 
 
   componentWillUnmount() {
-    APMService.getInstance().endSpan();
-    APMService.getInstance().endTransaction(false);
+    // APMService.getInstance().endSpan();
+    // APMService.getInstance().endTransaction(false);
   }
 
   componentDidMount() {
     createPetEditorModel(this.props.params.ownerId, Promise.resolve(NEW_PET))
       .then(model => {
-        APMService.getInstance().startSpan('Page Render', 'react');
+        // APMService.getInstance().startSpan('Page Render', 'react');
         this.setState(model);
       });
   }

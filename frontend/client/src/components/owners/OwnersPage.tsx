@@ -24,7 +24,7 @@ export default class OwnersPage extends React.Component<IOwnersPageProps, IOwner
   constructor(props: IOwnersPageProps, state: IOwnerPageState) {
     super(props, state);
     this.initial_render = true;
-    APMService.getInstance().startTransaction('OwnersPage');
+    // APMService.getInstance().startTransaction('OwnersPage');
     punish();
     this.state = {};
   }
@@ -34,7 +34,7 @@ export default class OwnersPage extends React.Component<IOwnersPageProps, IOwner
 
     if (params && params.ownerId) {
       xhr_request(`api/owners/${params.ownerId}`, (status, owner) =>  {
-        APMService.getInstance().startSpan('Page Render', 'react');
+        // APMService.getInstance().startSpan('Page Render', 'react');
         this.setState({ owner });
       });
     }
@@ -42,15 +42,15 @@ export default class OwnersPage extends React.Component<IOwnersPageProps, IOwner
 
   componentDidUpdate() {
     if (this.initial_render) {
-      APMService.getInstance().endSpan();
-      APMService.getInstance().endTransaction(true);
+      // APMService.getInstance().endSpan();
+      // APMService.getInstance().endTransaction(true);
     }
     this.initial_render = false;
   }
 
   componentWillUnmount() {
-    APMService.getInstance().endSpan();
-    APMService.getInstance().endTransaction(false);
+    // APMService.getInstance().endSpan();
+    // APMService.getInstance().endTransaction(false);
   }
 
   render() {
