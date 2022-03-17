@@ -32,7 +32,7 @@ export default class FindOwnersPage extends React.Component<IFindOwnersPageProps
 
   constructor(props) {
     super(props);
-    APMService.getInstance().startTransaction('FindOwnersPage');
+    // APMService.getInstance().startTransaction('FindOwnersPage');
     punish();
     this.initial_render = true;
     this.onFilterChange = this.onFilterChange.bind(this);
@@ -46,15 +46,15 @@ export default class FindOwnersPage extends React.Component<IFindOwnersPageProps
 
   componentDidUpdate() {
     if (this.initial_render) {
-      APMService.getInstance().endSpan();
-      APMService.getInstance().endTransaction(true);
+      // APMService.getInstance().endSpan();
+      // APMService.getInstance().endTransaction(true);
     }
     this.initial_render = false;
   }
 
   componentWillUnmount() {
-    APMService.getInstance().endSpan();
-    APMService.getInstance().endTransaction(false);
+    // APMService.getInstance().endSpan();
+    // APMService.getInstance().endTransaction(false);
   }
 
   componentDidMount() {
@@ -89,7 +89,7 @@ export default class FindOwnersPage extends React.Component<IFindOwnersPageProps
    */
   submitSearchForm() {
     const { filter } = this.state;
-    APMService.getInstance().startTransaction('FindOwnersPage: Filter');
+    // APMService.getInstance().startTransaction('FindOwnersPage: Filter');
     this.context.router.push({
       pathname: '/owners/list',
       query: { 'lastName': filter || '' }
@@ -104,7 +104,7 @@ export default class FindOwnersPage extends React.Component<IFindOwnersPageProps
     const requestUrl = filter && query !== '*' ? 'api/owners/*/lastname/' + query : 'api/owners';
     xhr_request(requestUrl, (status, owners) =>  {
       if (status < 400) {
-        APMService.getInstance().startSpan('Page Render', 'react');
+        // APMService.getInstance().startSpan('Page Render', 'react');
         this.setState({ owners });
       }
     });
